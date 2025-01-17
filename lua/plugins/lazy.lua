@@ -51,6 +51,10 @@ require("lazy").setup({
                 require("nvim_comment").setup({ create_mappings = false })
             end
         },
+        -- Auto pairs
+        {
+            'jiangmiao/auto-pairs'
+        },
         -- LSP
         {
             'williamboman/mason.nvim',
@@ -73,6 +77,17 @@ require("lazy").setup({
                         ['<C-Space>'] = cmp.mapping.complete(),
                         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
                         ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                        ['<CR>'] = cmp.mapping.confirm({
+                            select = false,
+                            behavior = cmp.ConfirmBehavior.Insert,
+                        }),
+                        ["<Tab>"] = cmp.mapping(function(fallback)
+                            if cmp.visible() then
+                                cmp.select_next_item()
+                            else
+                                fallback()
+                            end
+                        end)
                     }),
                     snippet = {
                         expand = function(args)
@@ -175,6 +190,14 @@ require("lazy").setup({
                                 }
                             }
                         end,
+                        ["omnisharp"] = function()
+                            local lspconfig = require("lspconfig")
+                            lspconfig.omnisharp.setup({
+                                cmd = {"omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid())},
+                                root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln"),
+                                capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                            })
+                        end
                     }
                 })
             end
@@ -192,7 +215,54 @@ require("lazy").setup({
                     indent = { enable = true },
                 })
             end
+        },
+        {
+            "folke/which-key.nvim",
+            event = "VeryLazy",
+            opts = {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            },
+            keys = {
+                {
+                    "<leader>?",
+                    function()
+                        require("which-key").show({ global = false })
+                    end,
+                    desc = "Buffer Local Keymaps (which-key)",
+                },
+            },
+        },
+        {
+            "kdheepak/lazygit.nvim",
+            lazy = true,
+            cmd = {
+                "LazyGit",
+                "LazyGitConfig",
+                "LazyGitCurrentFile",
+                "LazyGitFilter",
+                "LazyGitFilterCurrentFile",
+            },
+            -- optional for floating window border decoration
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+            -- setting the keybinding for LazyGit with 'keys' is recommended in
+            -- order to load the plugin when the command is run for the first time
+            keys = {
+                { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+            }
+        },
+        {
+            'rmagatti/auto-session',
+            ---enables autocomplete for opts
+            ---@module "auto-session"
+            ---@type AutoSession.Config
+            opts = {
+                suppressed_dirs = { '~/',  '~/Downloads', '/' },
+                -- log_level = 'debug',
+            }
         }
-
     }
 })
