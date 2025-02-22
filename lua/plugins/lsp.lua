@@ -37,7 +37,8 @@ return {
                 "angularls",
                 "superhtml",
                 "eslint",
-                "pyright"
+                "pyright",
+                "emmet_language_server"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -114,7 +115,7 @@ return {
                 vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
                 vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
                 vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-                vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+                vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
             end,
         })
     end
