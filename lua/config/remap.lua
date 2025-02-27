@@ -2,9 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.keymap.set('n', '<S-h>', vim.cmd.bprevious)
 vim.keymap.set('n', '<S-l>', vim.cmd.bnext)
-vim.keymap.set('n', '<leader>bd', vim.cmd.bd)
 vim.keymap.set('n', '<leader>|', vim.cmd.vsplit)
-vim.keymap.set('n', '<leader>q', vim.cmd.q)
 -- save filename
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>")
 -- Move Lines

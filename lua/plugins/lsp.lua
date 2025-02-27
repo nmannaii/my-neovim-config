@@ -38,7 +38,8 @@ return {
                 "superhtml",
                 "eslint",
                 "pyright",
-                "emmet_language_server"
+                "emmet_language_server",
+                "csharp_ls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -104,14 +105,7 @@ return {
             callback = function(event)
                 local opts = { buffer = event.buf }
 
-                local builtin = require('telescope.builtin')
                 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-                vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-                vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-                vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
-                vim.keymap.set('n', 'go', builtin.lsp_definitions, opts)
-                vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
-                vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, opts)
                 vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
                 vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
                 vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
