@@ -33,5 +33,10 @@ return {
             "<cmd>Trouble qflist toggle<cr>",
             desc = "Quickfix List (Trouble)",
         },
+        {
+            "<leader>xT",
+            "<cmd>Trouble todo filter = {tag = {TODO,FIX,FIXME}}<cr>",
+            desc = "TODO Comments (Trouble)"
+        }
     },
 }

@@ -1,4 +1,5 @@
 vim.opt.nu = true
+vim.opt.shellslash = true
 vim.opt.relativenumber = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -10,7 +11,9 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = vim.treesitter.foldexpr()
+vim.opt.foldenable = false -- Start with folds open
 vim.opt.smartindent = true
 
 vim.g.undotree_DiffCommand = "FC"
