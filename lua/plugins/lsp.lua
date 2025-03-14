@@ -6,7 +6,9 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "j-hui/fidget.nvim",
         "saghen/blink.cmp",
-        "nvim-telescope/telescope.nvim"
+        "seblyng/roslyn.nvim",
+        "nvim-telescope/telescope.nvim",
+        "pmizio/typescript-tools.nvim"
     },
 
     config = function()
@@ -22,18 +24,18 @@ return {
                 }
             }
         })
-        require("mason").setup()
+        require("mason").setup({
+            registries = { "github:crashdummyy/mason-registry", "github:mason-org/mason-registry" },
+        })
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                "ts_ls",
                 "angularls",
                 "eslint",
                 "pyright",
                 "emmet_language_server",
                 "cssls",
                 "css_variables",
-                "csharp_ls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -58,7 +60,14 @@ return {
                 end,
             }
         })
-
+        require("roslyn").setup()
+        require("typescript-tools").setup({
+            settings = {
+                tsserver_plugins = {
+                    "@angular/language-server"
+                },
+            }
+        })
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
